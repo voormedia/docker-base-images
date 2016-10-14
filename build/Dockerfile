@@ -13,11 +13,14 @@ RUN apk add --no-cache \
   musl-dev \
   openssh-client
 
+# Use gold linker
 RUN ln -s "$(which ld.gold)" /usr/local/bin/ld
 
+# Set some useful default compile flags
 ENV CFLAGS -Wall -Werror -flto
 ENV CXXFLAGS -Wall -Werror -std=c++14 -flto
 
+# Use clang by default
 ENV CC /usr/bin/clang
 ENV CXX /usr/bin/clang++
 
