@@ -1,9 +1,11 @@
 FROM alpine:edge
 MAINTAINER Rolf Timmermans <rolftimmermans@voormedia.com>
 
+# Install Node.js
 RUN apk add --no-cache \
   nodejs
 
+# Install yarn (better npm replacement)
 RUN cd /usr/local && \
   apk add --no-cache ca-certificates && \
   wget https://yarnpkg.com/latest.tar.gz -O yarn.tar.gz && \
