@@ -1,0 +1,17 @@
+#!/bin/sh
+tput setaf 2
+tput bold
+echo "Building image"
+tput sgr 0
+docker build -t voormedia/$@ $@
+
+tput setaf 2
+tput bold
+echo "Pushing image"
+tput sgr 0
+docker push voormedia/$@
+
+tput setaf 2
+tput bold
+echo "Success!"
+tput sgr 0
