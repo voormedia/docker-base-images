@@ -10,7 +10,7 @@ Create a Dockerfile in a new directory, say 'node/Dockerfile'.
 
 Then do something like this:
 
-    ./create node
+    ./build-container node
 
 ## Use the image in a project
 
