@@ -14,6 +14,8 @@ RUN cd /usr/local && \
 
 ENV PATH /usr/local/bin:$PATH
 
+ENV NODE_ENV=development
+
 VOLUME /srv/app
 WORKDIR /srv
 
