@@ -1,4 +1,6 @@
 #!/bin/sh
+set -e
+
 tput setaf 2
 tput bold
 echo "Building image"

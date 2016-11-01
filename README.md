@@ -6,17 +6,17 @@ There is only one rule, but it is important:
 
 ## Building a new image
 
-Create a Dockerfile in a new directory, say 'node/Dockerfile'.
+Create a Dockerfile in a new directory, say 'base/Dockerfile'.
 
 Then do something like this:
 
-    ./build-container node
+    ./create base
 
 ## Use the image in a project
 
 In your project, use it as follows:
 
-    FROM voormedia/node
+    FROM voormedia/base
 
 
 ## Hooray! Have fun!
