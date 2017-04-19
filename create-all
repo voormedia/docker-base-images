@@ -1,0 +1,6 @@
+#!/bin/sh
+./create base
+./create base-dev
+./create node
+./create node-dev
+./create rethinkdb

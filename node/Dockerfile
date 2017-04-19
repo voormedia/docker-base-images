@@ -3,7 +3,7 @@ MAINTAINER Rolf Timmermans <rolftimmermans@voormedia.com>
 
 # Install Node.js
 RUN apk add --no-cache \
-  nodejs
+ nodejs
 
 WORKDIR /srv
 

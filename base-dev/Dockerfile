@@ -2,11 +2,17 @@ FROM voormedia/base
 MAINTAINER Rolf Timmermans <rolftimmermans@voormedia.com>
 
 # Install build essentials
+# NOTES
+#   - wget & ca-certificates are needed because busybox default gives an error:
+#       wget: can't execute 'ssl_helper': No such file or directory
+#       wget: error getting response: Connection reset by peer
+#   - python2 is used for gyp and node-gyp.
 RUN apk add --no-cache \
  autoconf \
  automake \
- binutils-gold \
  build-base \
+ ca-certificates \
+ gdb \
  libtool \
  libunwind-dev \
  linux-headers \
@@ -15,22 +21,13 @@ RUN apk add --no-cache \
  cmake \
  git \
  openssh-client \
- python
-
-# Use gold linker
-RUN \
- ln -f /usr/x86_64-alpine-linux-musl/bin/ld.gold /usr/x86_64-alpine-linux-musl/bin/ld && \
- ln -f /usr/x86_64-alpine-linux-musl/bin/ld.gold /usr/bin/ld
+ python2 \
+ valgrind \
+ wget
 
 # Silence some git warnings
 RUN \
  git config --global advice.detachedHead false
-
-# Set some useful default compile flags
-ENV \
- CFLAGS="-Wall -Werror" \
- CXXFLAGS="-Wall -Werror" \
- LDFLAGS="-Wl,--no-posix-fallocate"
 
 VOLUME /workspace
 
