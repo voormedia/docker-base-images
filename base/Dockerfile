@@ -1,4 +1,4 @@
-FROM alpine:edge
+FROM alpine:3.6
 MAINTAINER Rolf Timmermans <rolftimmermans@voormedia.com>
 
 # Set timezone to UTC for everything. Also see:
