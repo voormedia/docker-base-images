@@ -1,5 +1,7 @@
 FROM voormedia/base
-MAINTAINER Rolf Timmermans <rolftimmermans@voormedia.com>
+
+LABEL \
+role="intermediate"
 
 # Install build essentials
 # NOTES
@@ -8,27 +10,24 @@ MAINTAINER Rolf Timmermans <rolftimmermans@voormedia.com>
 #       wget: error getting response: Connection reset by peer
 #   - python2 is used for gyp and node-gyp.
 RUN apk add --no-cache \
- autoconf \
- automake \
- build-base \
- ca-certificates \
- gdb \
- libtool \
- libunwind-dev \
- linux-headers \
- nasm \
- nodejs \
- cmake \
- git \
- openssh-client \
- python2 \
- valgrind \
- wget
+autoconf \
+automake \
+build-base \
+ca-certificates \
+gdb \
+libtool \
+libunwind-dev \
+linux-headers \
+nasm \
+nodejs \
+cmake \
+git \
+openssh-client \
+python2 \
+valgrind \
+wget
 
 # Silence some git warnings
 RUN \
- git config --global advice.detachedHead false
+git config --global advice.detachedHead false
 
-VOLUME /workspace
-
-WORKDIR /workspace
