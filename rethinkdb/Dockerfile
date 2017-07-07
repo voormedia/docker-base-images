@@ -11,8 +11,10 @@ jq \
 rethinkdb && \
 rm /etc/init.d/rethinkdb
 
+COPY run.sh /
+
 VOLUME /data
 
 WORKDIR /data
 
-ENTRYPOINT ["rethinkdb"]
+ENTRYPOINT ["/run.sh"]
