@@ -5,7 +5,7 @@ tput setaf 2
 tput bold
 echo "Building image"
 tput sgr 0
-docker build --pull --tag voormedia/$@ $@
+docker build --squash --pull --tag voormedia/$@ $@
 
 tput setaf 2
 tput bold
