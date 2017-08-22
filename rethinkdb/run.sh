@@ -12,7 +12,7 @@ existing=$(wget -q --ca-certificate "${ca_path}" --header "Authorization: Bearer
 
 # If there are no other pods, check if we need to join ourselves or
 if [[ -n "${existing}" ]]; then
-  join="--server-tag default --join ${existing}"
+  join="--server-tag default --server-tag secondary --join ${existing}"
   echo "Joining cluster at ${existing}"
 else
   if [[ -n "${JOIN_CLUSTER}" ]]; then
