@@ -2,7 +2,7 @@ FROM voormedia/base
 
 # Install Node.js
 RUN apk add --no-cache \
-nodejs
+nodejs-current
 
 WORKDIR /srv
 

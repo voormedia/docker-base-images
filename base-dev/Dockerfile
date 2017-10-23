@@ -20,7 +20,7 @@ libtool \
 libunwind-dev \
 linux-headers \
 nasm \
-nodejs \
+nodejs-current \
 cmake \
 git \
 openssh-client \
