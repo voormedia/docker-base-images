@@ -1,6 +1,8 @@
 #!/bin/sh
 ./create base
 ./create base-dev
+./create base-stable
+./create base-stable-dev
 ./create node
 ./create node-dev
 ./create rethinkdb

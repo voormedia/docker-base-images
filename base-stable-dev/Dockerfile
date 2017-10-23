@@ -1,4 +1,4 @@
-FROM voormedia/base
+FROM voormedia/base-stable
 
 LABEL \
 role="intermediate"
