@@ -14,7 +14,7 @@ linux-headers \
 llvm \
 make \
 nasm \
-nodejs-current \
+nodejs \
 cmake \
 git \
 openssh-client \
