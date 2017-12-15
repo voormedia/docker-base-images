@@ -1,7 +1,8 @@
-FROM voormedia/base-stable
+ARG version
+FROM voormedia/base:${version}
 
 LABEL \
-role="intermediate"
+role="build"
 
 # Install build essentials
 # NOTES
@@ -9,11 +10,11 @@ role="intermediate"
 #       wget: can't execute 'ssl_helper': No such file or directory
 #       wget: error getting response: Connection reset by peer
 #   - python2 is used for gyp and node-gyp.
-RUN apk add --no-cache \
+RUN \
+apk add --no-cache \
 autoconf \
 automake \
 build-base \
-ca-certificates \
 file \
 gdb \
 libtool \
@@ -25,8 +26,7 @@ cmake \
 git \
 openssh-client \
 python2 \
-valgrind \
-wget
+valgrind
 
 # Silence some git warnings
 RUN \

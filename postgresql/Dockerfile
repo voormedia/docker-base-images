@@ -1,9 +1,10 @@
 FROM voormedia/base
 
-RUN apk add --no-cache \
+RUN \
+apk add --no-cache \
 postgresql \
-postgresql-contrib && \
-rm /etc/init.d/postgresql
+postgresql-contrib \
+&& rm /etc/init.d/postgresql
 
 COPY run.sh /
 
@@ -13,8 +14,9 @@ PGDATA="/data/pg" \
 PGDB="postgres" \
 PGUSER="postgres"
 
-RUN mkdir -p /run/postgresql && \
-chown -R postgres:postgres /run/postgresql
+RUN \
+mkdir -p /run/postgresql \
+&& chown -R postgres:postgres /run/postgresql
 
 USER postgres
 VOLUME /data

@@ -1,9 +1,8 @@
-FROM voormedia/base
+ARG version
+FROM voormedia/base:${version}
 
-# Install Node.js
-RUN apk add --no-cache \
+RUN \
+apk add --no-cache \
 nodejs
-
-WORKDIR /srv
 
 ENTRYPOINT ["node"]

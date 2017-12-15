@@ -1,17 +1,21 @@
 #!/bin/sh
 set -e
 
-tput setaf 2
-tput bold
-echo "Building image"
-tput sgr 0
-docker build --pull --tag voormedia/$@ $@
+name=${1}
+version=${2:-latest}
+img=voormedia/${name}:${version}
 
 tput setaf 2
 tput bold
-echo "Pushing image"
+echo "Building image ${img}"
 tput sgr 0
-docker push voormedia/$@
+docker build --pull --tag ${img} --build-arg "version=${version}" ${name}
+
+tput setaf 2
+tput bold
+echo "Pushing image ${img}"
+tput sgr 0
+docker push ${img}
 
 tput setaf 2
 tput bold

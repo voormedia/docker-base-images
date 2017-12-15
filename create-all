@@ -1,8 +1,20 @@
 #!/bin/sh
-./create base
-./create base-dev
-./create base-stable
-./create base-stable-dev
-./create node
-./create node-dev
-./create rethinkdb
+
+# Base images.
+./create base 3.7
+./create build 3.7
+
+./create base edge
+./create build edge
+
+# Environments for a particular language.
+./create node 3.7
+./create node-build 3.7
+./create ruby 3.7
+./create ruby-build 3.7
+
+# Environments with application servers included.
+./create passenger 3.7
+
+# # Other.
+# ./create rethinkdb
