@@ -13,8 +13,5 @@
 ./create ruby 3.7
 ./create ruby-build 3.7
 
-# Environments with application servers included.
-./create passenger 3.7
-
 # # Other.
 # ./create rethinkdb

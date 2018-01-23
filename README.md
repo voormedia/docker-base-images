@@ -16,7 +16,9 @@ Then do something like this:
 
 In your project, use it as follows:
 
-    FROM voormedia/base
+    FROM voormedia/ruby-build:3.7 AS build
+
+    FROM voormedia/ruby:3.7
 
 
 ## Hooray! Have fun!
