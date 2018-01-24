@@ -4,7 +4,6 @@ FROM voormedia/build:${version}
 RUN \
 apk add --no-cache \
 yarn \
-
 && yarn global add \
 node-gyp
 
