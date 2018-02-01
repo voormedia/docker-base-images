@@ -1,4 +1,5 @@
-FROM voormedia/base
+ARG version
+FROM voormedia/base:${version}
 
 # Install RethinkDB
 # wget/ca-certificates temporarily required because busybox's wget + ssl is
@@ -10,7 +11,6 @@ wget \
 ca-certificates \
 jq \
 rethinkdb \
-
 && rm /etc/init.d/rethinkdb
 
 COPY run.sh /
