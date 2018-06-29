@@ -3,6 +3,7 @@ FROM voormedia/base:${version}
 
 RUN \
 apk add --no-cache \
-nodejs
+nodejs \
+&& rm -rf /usr/lib/node_modules
 
 ENTRYPOINT ["node"]
