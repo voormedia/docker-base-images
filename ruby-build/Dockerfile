@@ -10,6 +10,7 @@ ruby \
 ruby-dev \
 ruby-bigdecimal \
 ruby-bundler \
+ruby-etc \
 ruby-irb \
 zlib-dev \
 # Do not install gem documentation.
