@@ -7,6 +7,7 @@ ruby \
 ruby-bigdecimal \
 ruby-bundler \
 ruby-etc \
+ruby-webrick \
 # Do not install gem documentation.
 && echo "gem: --no-rdoc --no-ri" > /etc/gemrc \
 # Use https URLs for Github so bundle will be happier.

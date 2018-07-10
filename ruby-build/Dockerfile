@@ -12,6 +12,7 @@ ruby-bigdecimal \
 ruby-bundler \
 ruby-etc \
 ruby-irb \
+ruby-webrick \
 zlib-dev \
 # Do not install gem documentation.
 && echo "gem: --no-rdoc --no-ri" > /etc/gemrc \
