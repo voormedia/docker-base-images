@@ -18,7 +18,6 @@ build-base \
 file \
 gdb \
 libtool \
-libunwind-dev \
 linux-headers \
 nasm \
 nodejs \
