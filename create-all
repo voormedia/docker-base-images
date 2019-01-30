@@ -1,17 +1,21 @@
 #!/bin/sh
 
 # Base images.
-./create base 3.8
-./create build 3.8
+./create base 3.9
+./create build 3.9
 
 ./create base edge
 ./create build edge
 
 # Environments for a particular language.
-./create node 3.8
-./create node-build 3.8
-./create ruby 3.8
-./create ruby-build 3.8
+./create node 3.9
+./create node-build 3.9
 
-# Other.
-./create rethinkdb 3.8
+./create node edge
+./create node-build edge
+
+./create ruby 3.9
+./create ruby-build 3.9
+
+./create ruby edge
+./create ruby-build edge
