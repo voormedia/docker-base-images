@@ -1,21 +1,21 @@
 #!/bin/sh
 
 # Base images.
-./create base 3.9
-./create build 3.9
+./create base 3.10
+./create build 3.10
 
-./create base edge
-./create build edge
+# ./create base edge
+# ./create build edge
 
 # Environments for a particular language.
-./create node 3.9
-./create node-build 3.9
+./create node 3.10
+./create node-build 3.10
 
-./create node edge
-./create node-build edge
+# ./create node edge
+# ./create node-build edge
 
-./create ruby 3.9
-./create ruby-build 3.9
+./create ruby 3.10
+./create ruby-build 3.10
 
-./create ruby edge
-./create ruby-build edge
+# ./create ruby edge
+# ./create ruby-build edge
