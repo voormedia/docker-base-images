@@ -24,6 +24,7 @@ nodejs \
 cmake \
 git \
 openssh-client \
+postgresql-client \
 python2 \
 valgrind
 
