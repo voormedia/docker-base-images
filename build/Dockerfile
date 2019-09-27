@@ -15,6 +15,7 @@ apk add --no-cache \
 autoconf \
 automake \
 build-base \
+cargo \
 file \
 gdb \
 libtool \
@@ -26,6 +27,7 @@ git \
 openssh-client \
 postgresql-client \
 python2 \
+rust \
 valgrind
 
 # Silence some git warnings
