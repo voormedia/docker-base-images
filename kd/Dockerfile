@@ -7,7 +7,7 @@ RUN gcloud components install docker-credential-gcr --quiet
 RUN docker-credential-gcr version
 
 # Image
-FROM ruby:2.5.5
+FROM ruby:${version}
 
 RUN apt-get update
 RUN apt-get install -y apt-transport-https \
@@ -30,6 +30,8 @@ RUN apt-get install -y docker-ce
 
 COPY --from=builder /google-cloud-sdk/bin/* /usr/local/bin/
 RUN docker-credential-gcr configure-docker
+
+RUN mkdir /root/.kube
 
 # Install Go for debugging
 # RUN wget -c https://storage.googleapis.com/golang/go1.10.3.linux-amd64.tar.gz
