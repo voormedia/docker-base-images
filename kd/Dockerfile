@@ -18,6 +18,14 @@ RUN apt-get install -y apt-transport-https \
   php-curl \
   gnupg2 \
   openssh-client \
+  nodejs \
+  xvfb \
+  g++ \
+  qt5-default \
+  libqt5webkit5-dev \
+  gstreamer1.0-plugins-base \
+  gstreamer1.0-tools \
+  gstreamer1.0-x \
   software-properties-common
 
 RUN curl -fsSL https://download.docker.com/linux/debian/gpg | apt-key add -
