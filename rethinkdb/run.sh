@@ -24,4 +24,15 @@ else
   fi
 fi
 
-exec rethinkdb --bind all ${join}
+# Build URL and retrieve load balancer IP if it exists.
+lb_endpoint="https://${KUBERNETES_SERVICE_HOST}:${KUBERNETES_SERVICE_PORT_HTTPS}/api/v1/namespaces/${POD_NAMESPACE}/services"
+lb_ip=$(wget -q --ca-certificate "${ca_path}" --header "Authorization: Bearer ${token}" -O - "${lb_endpoint}" | jq -s -r '.[0].items[0].status.loadBalancer.ingress[0].ip // ""') || exit 1
+
+# Set canonical address based on IP addresses found
+if [[ -n "${lb_ip}" ]]; then
+  addresses="--canonical-address ${POD_IP} --canonical-address 127.0.0.1 --canonical-address ${lb_ip}"
+else
+  addresses="--canonical-address ${POD_IP} --canonical-address 127.0.0.1"
+fi
+
+exec rethinkdb --bind all ${join} ${addresses}
