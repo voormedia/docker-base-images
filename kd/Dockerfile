@@ -16,6 +16,8 @@ RUN apt-get install -y apt-transport-https \
   curl \
   git \
   composer \
+  freetds-bin \
+  freetds-dev \
   php-curl \
   gnupg2 \
   openssh-client \
@@ -29,13 +31,16 @@ RUN apt-get install -y apt-transport-https \
   gstreamer1.0-x \
   software-properties-common
 
+RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
+RUN echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
+
 RUN curl -fsSL https://download.docker.com/linux/debian/gpg | apt-key add -
 RUN apt-key fingerprint 0EBFCD88
 RUN add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/debian \
   $(lsb_release -cs) \
   stable"
 RUN apt-get update
-RUN apt-get install -y docker-ce
+RUN apt-get install -y docker-ce yarn
 
 COPY --from=builder /google-cloud-sdk/bin/* /usr/local/bin/
 RUN docker-credential-gcr configure-docker
