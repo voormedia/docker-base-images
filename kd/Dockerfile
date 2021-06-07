@@ -6,7 +6,7 @@ FROM google/cloud-sdk:alpine as builder
 RUN gcloud components install docker-credential-gcr --quiet
 RUN docker-credential-gcr version
 
-# Image
+# Image (NOT the Voormedia ruby image)
 FROM ruby:${version}
 
 RUN curl -sL https://deb.nodesource.com/setup_12.x | bash -
