@@ -4,30 +4,42 @@
 # ./create base 3.9
 # ./create base 3.10
 # ./create base 3.11
-./create base 3.12
+# ./create base 3.12
+# ./create base 3.13
+./create base 3.14
 # ./create build 3.9
 # ./create build 3.10
 # ./create build 3.11
-./create build 3.12
+# ./create build 3.12
+# ./create build 3.13
+./create build 3.14
 
 # Environments for a particular language.
 # ./create node 3.9
 # ./create node 3.10
 # ./create node 3.11
-./create node 3.12
+# ./create node 3.12
+# ./create node 3.13
+./create node 3.14
 # ./create node-build 3.9
 # ./create node-build 3.10
 # ./create node-build 3.11
-./create node-build 3.12
+# ./create node-build 3.12
+# ./create node-build 3.13
+./create node-build 3.14
 
 # ./create ruby 3.9
 # ./create ruby 3.10
 # ./create ruby 3.11
-./create ruby 3.12
+# ./create ruby 3.12
+# ./create ruby 3.13
+./create ruby 3.14
 # ./create ruby-build 3.9
 # ./create ruby-build 3.10
 # ./create ruby-build 3.11
-./create ruby-build 3.12
+# ./create ruby-build 3.12
+# ./create ruby-build 3.13
+./create ruby-build 3.14
 
 # ./create base edge
 # ./create build edge
