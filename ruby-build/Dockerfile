@@ -12,6 +12,7 @@ ruby-bigdecimal \
 ruby-bundler \
 ruby-etc \
 ruby-irb \
+ruby-json \
 ruby-webrick \
 zlib-dev \
 # Do not install gem documentation.
