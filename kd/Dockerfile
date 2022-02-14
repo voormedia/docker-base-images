@@ -24,7 +24,10 @@ RUN apt-get install -y apt-transport-https \
   nodejs \
   xvfb \
   g++ \
-  qt5-default \
+  qtbase5-dev \
+  qtchooser \
+  qt5-qmake \
+  qtbase5-dev-tools \
   libqt5webkit5-dev \
   gstreamer1.0-plugins-base \
   gstreamer1.0-tools \
