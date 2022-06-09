@@ -1,17 +1,12 @@
 ARG version
 
-# Build image
-FROM google/cloud-sdk:alpine as builder
-
-RUN gcloud components install docker-credential-gcr --quiet
-RUN docker-credential-gcr version
-
 # Image (NOT the Voormedia ruby image)
 FROM ruby:${version}
 
-RUN curl -sL https://deb.nodesource.com/setup_12.x | bash -
-RUN apt-get update
-RUN apt-get install -y apt-transport-https \
+RUN \
+curl -sL https://deb.nodesource.com/setup_12.x | bash - && \
+apt-get update && \
+apt-get install -y apt-transport-https \
   ca-certificates \
   curl \
   git \
@@ -34,19 +29,31 @@ RUN apt-get install -y apt-transport-https \
   gstreamer1.0-x \
   software-properties-common
 
-RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
-RUN echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
-
-RUN curl -fsSL https://download.docker.com/linux/debian/gpg | apt-key add -
-RUN apt-key fingerprint 0EBFCD88
-RUN add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/debian \
+RUN \
+curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - && \
+echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list && \
+curl -fsSL https://download.docker.com/linux/debian/gpg | apt-key add - && \
+apt-key fingerprint 0EBFCD88 && \
+add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/debian \
   $(lsb_release -cs) \
-  stable"
-RUN apt-get update
-RUN apt-get install -y docker-ce yarn
+  stable" && \
+apt-get update && \
+apt-get install -y docker-ce yarn
 
-COPY --from=builder /google-cloud-sdk/bin/* /usr/local/bin/
-RUN docker-credential-gcr configure-docker
+RUN \
+cd ~ && \
+curl -O https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-cli-389.0.0-linux-x86_64.tar.gz && \
+tar -xf google-cloud-cli-389.0.0-linux-x86_64.tar.gz && \
+./google-cloud-sdk/install.sh --quiet && \
+./google-cloud-sdk/bin/gcloud components install docker-credential-gcr && \
+rm google-cloud-cli-389.0.0-linux-x86_64.tar.gz
+
+ENV \
+PATH="/root/google-cloud-sdk/bin:$PATH"
+
+RUN \
+docker-credential-gcr configure-docker && \
+gcloud auth configure-docker europe-west1-docker.pkg.dev --quiet
 
 RUN mkdir /root/.kube
 
