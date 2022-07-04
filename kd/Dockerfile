@@ -42,17 +42,19 @@ apt-get install -y docker-ce yarn
 
 RUN \
 cd ~ && \
-curl -O https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-cli-389.0.0-linux-x86_64.tar.gz && \
-tar -xf google-cloud-cli-389.0.0-linux-x86_64.tar.gz && \
+curl -O https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-cli-392.0.0-linux-x86_64.tar.gz && \
+tar -xf google-cloud-cli-392.0.0-linux-x86_64.tar.gz && \
 ./google-cloud-sdk/install.sh --quiet && \
-./google-cloud-sdk/bin/gcloud components install docker-credential-gcr && \
-rm google-cloud-cli-389.0.0-linux-x86_64.tar.gz
+./google-cloud-sdk/bin/gcloud components install kubectl && \
+ls -la && \
+rm google-cloud-cli-392.0.0-linux-x86_64.tar.gz
 
 ENV \
 PATH="/root/google-cloud-sdk/bin:$PATH"
 
 RUN \
-docker-credential-gcr configure-docker && \
+docker-credential-gcloud configure-docker && \
+gcloud auth configure-docker eu.gcr.io --quiet && \
 gcloud auth configure-docker europe-west1-docker.pkg.dev --quiet
 
 RUN mkdir /root/.kube
