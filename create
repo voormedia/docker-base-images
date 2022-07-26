@@ -9,7 +9,7 @@ tput setaf 2
 tput bold
 echo "Building image ${img}"
 tput sgr 0
-docker build --platform amd64 --pull --tag ${img} --build-arg "version=${version}" ${name}
+docker build --platform linux/amd64 --pull --tag ${img} --build-arg "version=${version}" ${name}
 
 tput setaf 2
 tput bold
