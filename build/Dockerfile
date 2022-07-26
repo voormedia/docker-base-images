@@ -5,11 +5,6 @@ LABEL \
 role="build"
 
 # Install build essentials
-# NOTES
-#   - wget & ca-certificates are needed because busybox default gives an error:
-#       wget: can't execute 'ssl_helper': No such file or directory
-#       wget: error getting response: Connection reset by peer
-#   - python2 is used for gyp and node-gyp.
 RUN \
 apk add --no-cache \
 autoconf \
@@ -26,7 +21,7 @@ cmake \
 git \
 openssh-client \
 postgresql-client \
-python2 \
+python3 \
 rust \
 valgrind
 
