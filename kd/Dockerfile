@@ -16,6 +16,7 @@ apt-get install -y apt-transport-https \
   php-curl \
   gnupg2 \
   openssh-client \
+  postgresql-client \
   nodejs \
   xvfb \
   g++ \
