@@ -14,6 +14,7 @@ ruby-etc \
 ruby-irb \
 ruby-json \
 ruby-webrick \
+yaml-dev \
 zlib-dev \
 # Do not install gem documentation.
 && echo "gem: --no-rdoc --no-ri" > /etc/gemrc \

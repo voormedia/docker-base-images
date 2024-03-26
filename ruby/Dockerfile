@@ -10,6 +10,7 @@ ruby-etc \
 ruby-irb \
 ruby-json \
 ruby-webrick \
+yaml \
 # Do not install gem documentation.
 && echo "gem: --no-rdoc --no-ri" > /etc/gemrc \
 # Use https URLs for Github so bundle will be happier.
