@@ -9,6 +9,7 @@
 # ./create base 3.17
 # ./create base 3.18
 ./create base 3.19
+./create base 3.20
 
 # ./create build 3.12
 # ./create build 3.13
@@ -18,6 +19,7 @@
 # ./create build 3.17
 # ./create build 3.18
 ./create build 3.19
+./create build 3.20
 
 # ./create gcloud 3.12
 # ./create gcloud 3.13
@@ -27,6 +29,7 @@
 # ./create gcloud 3.17
 # ./create gcloud 3.18
 ./create gcloud 3.19
+./create gcloud 3.20
 
 # Environments for a particular language.
 # ./create node 3.12
@@ -37,6 +40,7 @@
 # ./create node 3.17
 # ./create node 3.18
 ./create node 3.19
+./create node 3.20
 
 # ./create node-build 3.12
 # ./create node-build 3.13
@@ -46,6 +50,7 @@
 # ./create node-build 3.17
 # ./create node-build 3.18
 ./create node-build 3.19
+./create node-build 3.20
 
 # ./create ruby 3.12
 # ./create ruby 3.13
@@ -55,6 +60,7 @@
 # ./create ruby 3.17
 # ./create ruby 3.18
 ./create ruby 3.19
+./create ruby 3.20
 
 # ./create ruby-build 3.12
 # ./create ruby-build 3.13
@@ -64,3 +70,4 @@
 # ./create ruby-build 3.17
 # ./create ruby-build 3.18
 ./create ruby-build 3.19
+./create ruby-build 3.20
