@@ -6,10 +6,6 @@ VERSIONS=$(wget https://alpinelinux.org/releases.json -q -O - | jq -r '(.release
 echo Building images: $IMAGES
 echo Building versions: $VERSIONS
 
-if [[ -n "$DOCKER_USERNAME" ]]; then
-  docker login -u="${DOCKER_USERNAME}" -p="${DOCKER_PASSWORD}"
-fi
-
 IFS=$'\n'
 for image in $IMAGES; do
   for version in $VERSIONS; do
