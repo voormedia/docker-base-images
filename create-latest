@@ -2,7 +2,7 @@
 
 VERSIONED_IMAGES=$(find . -maxdepth 1 -type d -not -name 'gcloud' -not -name 'kd' -not -name '.*' -not -name '_*' -exec basename {} \; | sort)
 VERSIONED_IMAGES_REV=$(echo "$IMAGES" | tac)
-VERSIONS=$(wget https://alpinelinux.org/releases.json -q -O - | jq -r '(.release_branches | map(.rel_branch)) - ["edge"] | map(sub("v"; ""))[0:6][]')
+VERSIONS=$(wget https://alpinelinux.org/releases.json -q -O - | jq -r '(.release_branches | map(.rel_branch)) - ["edge"] | map(sub("v"; ""))[0:5][]')
 
 echo Building images: $VERSIONED_IMAGES
 echo Building versions: $VERSIONS
