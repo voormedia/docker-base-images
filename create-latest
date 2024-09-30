@@ -1,15 +1,20 @@
 #!/bin/bash
 
 IMAGES=$(find . -maxdepth 1 -type d -not -name '.*' -not -name '_*' -exec basename {} \; | sort)
+IMAGES_REV=$(echo "$IMAGES" | tac)
 VERSIONS=$(wget https://alpinelinux.org/releases.json -q -O - | jq -r '(.release_branches | map(.rel_branch)) - ["edge"] | map(sub("v"; ""))[0:6][]')
 
-echo Building images: $IMAGES
+echo Building images: $IMAGES_REV
 echo Building versions: $VERSIONS
 
 IFS=$'\n'
-for image in $IMAGES; do
-  for version in $VERSIONS; do
+for version in $VERSIONS; do
+  for image in $IMAGES; do
     ./create "$image" "$version"
+  done
+
+  # Untag all images
+  for image in $IMAGES_REV; do
     docker image rm "voormedia/${image}:${version}"
   done
 done
