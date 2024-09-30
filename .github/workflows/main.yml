@@ -5,6 +5,9 @@ on:
   schedule:
     - cron: '0 10 * * *'
 
+env:
+  TERM: xterm
+
 jobs:
   build:
     runs-on: ubuntu-latest
