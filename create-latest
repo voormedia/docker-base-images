@@ -10,5 +10,6 @@ IFS=$'\n'
 for image in $IMAGES; do
   for version in $VERSIONS; do
     ./create "$image" "$version"
+    docker image rm "voormedia/${image}:${version}"
   done
 done
