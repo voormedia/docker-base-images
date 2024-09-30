@@ -1,5 +1,4 @@
-ARG version
-FROM voormedia/gcloud:${version}
+FROM voormedia/gcloud:latest
 
 RUN \
 apk add --no-cache \
