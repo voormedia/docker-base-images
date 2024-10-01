@@ -1,5 +1,6 @@
 #!/bin/sh
 set -e
+export DOCKER_BUILDKIT=1
 
 name=${1}
 version=${2:-latest}
@@ -9,7 +10,14 @@ tput setaf 2
 tput bold
 echo "Building image ${img}"
 tput sgr 0
-docker build --platform linux/amd64 --pull --tag ${img} --build-arg "version=${version}" ${name}
+docker build \
+--cache-from ${img} \
+--platform linux/amd64 \
+--pull \
+--tag ${img} \
+--build-arg BUILDKIT_INLINE_CACHE=1 \
+--build-arg "version=${version}" \
+${name}
 
 tput setaf 2
 tput bold
