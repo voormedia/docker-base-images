@@ -9,7 +9,6 @@ ruby-bundler \
 ruby-etc \
 ruby-irb \
 ruby-json \
-ruby-webrick \
 yaml \
 # Do not install gem documentation.
 && echo "gem: --no-rdoc --no-ri" > /etc/gemrc \

@@ -13,7 +13,6 @@ ruby-bundler \
 ruby-etc \
 ruby-irb \
 ruby-json \
-ruby-webrick \
 yaml-dev \
 zlib-dev \
 # Do not install gem documentation.
