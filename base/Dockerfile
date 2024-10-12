@@ -11,4 +11,7 @@ base="alpine:${version}"
 ENV \
 TZ="UTC"
 
+# Apply latest security patches.
+RUN apk upgrade --no-cache
+
 WORKDIR /srv
