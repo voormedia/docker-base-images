@@ -2,8 +2,10 @@
 set -e
 export DOCKER_BUILDKIT=1
 
-name=${1}
+path=${1}
+name=$(echo "${path}" | cut -d '/' -f 2)
 version=${2:-latest}
+tag=${3}
 img=voormedia/${name}:${version}
 
 tput setaf 2
@@ -17,13 +19,23 @@ docker build \
 --tag ${img} \
 --build-arg BUILDKIT_INLINE_CACHE=1 \
 --build-arg "version=${version}" \
-${name}
+${path}
 
 tput setaf 2
 tput bold
 echo "Pushing image ${img}"
 tput sgr 0
 docker push ${img}
+
+if [ -n "${tag}" ]; then
+  tagged=voormedia/${name}:${tag}
+  tput setaf 2
+  tput bold
+  echo "Tagging image ${img} as ${tagged}"
+  tput sgr 0
+  docker tag ${img} ${tagged}
+  docker push ${tagged}
+fi
 
 tput setaf 2
 tput bold

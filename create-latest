@@ -1,24 +1,39 @@
 #!/bin/bash
 
-VERSIONED_IMAGES=$(find . -maxdepth 1 -type d -not -name 'gcloud' -not -name 'kd' -not -name '.*' -not -name '_*' -exec basename {} \; | sort)
-VERSIONED_IMAGES_REV=$(echo "$IMAGES" | tac)
-VERSIONS=$(wget https://alpinelinux.org/releases.json -q -O - | jq -r '.release_branches | map(.rel_branch | sub("v"; ""))[0:5][]')
+# VERSIONED_IMAGES=$(find core -maxdepth 1 -type d -exec basename {} \; | sort)
+# VERSIONED_IMAGES_REV=$(echo "$IMAGES" | tac)
+# VERSIONS=$(wget https://alpinelinux.org/releases.json -q -O - | jq -r '.release_branches | map(.rel_branch | sub("v"; ""))[0:5][]')
 
-echo Building images: $VERSIONED_IMAGES
-echo Building versions: $VERSIONS
+# echo Building images: $VERSIONED_IMAGES
+# echo Building versions: $VERSIONS
 
-IFS=$'\n'
-for version in $VERSIONS; do
-  for image in $VERSIONED_IMAGES; do
-    ./create "$image" "$version"
-  done
+# IFS=$'\n'
 
-  # Untag all images
-  for image in $VERSIONED_IMAGES_REV; do
-    docker image rm "voormedia/${image}:${version}"
-  done
-done
+# additional_tag=""
+
+# for version in $VERSIONS; do
+#   for image in $VERSIONED_IMAGES; do
+#     ./create "core/${image}" "${version}" "${additional_tag}"
+#   done
+
+#   # Untag all images
+#   for image in $VERSIONED_IMAGES_REV; do
+#     docker image rm --force "voormedia/${image}:${version}"
+#   done
+
+#   if [ "$version" = "edge" ]; then
+#     additional_tag="latest"
+#   elif [ "$LATEST" = true ]; then
+#     additional_tag=""
+#   fi
+# done
 
 # Build unversioned images
-./create "gcloud" "latest"
-./create "kd" "latest"
+./create util/gcloud latest
+./create util/kd latest
+
+# Based on gcloud, must be built after
+./create util/backup-base latest
+./create util/backup-cloud-storage latest
+./create util/backup-github latest
+./create util/backup-postgresql latest

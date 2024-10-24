@@ -29,14 +29,12 @@ python3 \
 rust \
 valgrind \
 postgresql-dev \
-tzdata
+tzdata \
+# Silence some git warnings
+&& git config --global advice.detachedHead false
 
 # Install script to run commands (used in CI).
 COPY run.sh /usr/local/bin/
-
-# Silence some git warnings
-RUN \
-git config --global advice.detachedHead false
 
 # Set chromedriver path for webdriver gem.
 ENV \

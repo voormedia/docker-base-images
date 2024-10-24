@@ -10,7 +10,7 @@ Create a Dockerfile in a new directory, say 'base/Dockerfile'.
 
 Then do something like this:
 
-    ./create base
+    ./create core/base 3.20
 
 ## Use the image in a project
 
