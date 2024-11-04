@@ -13,8 +13,8 @@ if [ -z "${B2_ENCRYPTION_KEY}" ]; then
   has_errors=true
 fi
 
-if [ -z "${B2_ACCOUNT_ID}" ]; then
-  echo "B2_ACCOUNT_ID is not set."
+if [ -z "${B2_APPLICATION_KEY_ID}" ]; then
+  echo "B2_APPLICATION_KEY_ID is not set."
   has_errors=true
 fi
 
@@ -42,7 +42,7 @@ if [ "${has_errors}" = true ]; then
   exit 1
 fi
 
-b2 authorize_account
+b2 account authorize
 
 DATE=$(date +"%Y-%m-%d_%H:%M:%S")
 
@@ -53,7 +53,7 @@ for database in $DATABASES; do
   if [[ $database =~ "-prd" ]]; then
     pg_dump --format=plain --no-owner --no-acl --clean -c "${database}" > "/tmp/${FILENAME}.sql"
     openssl aes-256-cbc -md md5 -in "/tmp/${FILENAME}.sql" -out "/tmp/${FILENAME}.sql.encrypted" -pass "pass:${B2_ENCRYPTION_KEY}"
-    b2 upload_file "${B2_BUCKET}" "/tmp/${FILENAME}.sql.encrypted" "${database}/${FILENAME}.sql.encrypted"
+    b2 file upload "${B2_BUCKET}" "/tmp/${FILENAME}.sql.encrypted" "${database}/${FILENAME}.sql.encrypted"
     rm "/tmp/${FILENAME}".*
   fi
 done
