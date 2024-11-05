@@ -1,8 +1,8 @@
 FROM voormedia/backup-base:latest
 
 RUN \
-apk add --no-cache \
-postgresql16-client
+  apk add --no-cache \
+  postgresql17-client
 
 COPY backup-postgresql.sh /srv
 
