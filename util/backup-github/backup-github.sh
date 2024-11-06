@@ -46,6 +46,7 @@ FILENAME="git_repositories_${DATE}"
 mkdir "/tmp/${FILENAME}"
 cd "/tmp/${FILENAME}"
 
+
 REPOS=$(gh repo list "${GITHUB_ACCOUNT}" --source --limit 100000 --json name | jq -r -c '.[] | .name')
 
 if [ -n "$REPOSITORY_PREFIX" ]; then
@@ -53,25 +54,26 @@ if [ -n "$REPOSITORY_PREFIX" ]; then
 fi
 
 for REPO in $REPOS; do
-  if [[ $NAME == "${REPOSITORY_PREFIX}"* ]]; then
-    gh repo clone "${GITHUB_ACCOUNT}/${NAME}" -- --mirror
-    cd "${NAME}.git"
+  if [[ $REPO == "${REPOSITORY_PREFIX}"* ]]; then
+    echo "Backing up repository: ${REPO} for ${GITHUB_ACCOUNT}."
+    gh repo clone "${GITHUB_ACCOUNT}/${REPO}" -- --mirror
+    cd "${REPO}.git"
 
     if [[ -n "$(git rev-list --branches)" ]]; then
       # Check if there are any commits.
-      git bundle create "../${NAME}.pack" --all
+      git bundle create "../${REPO}.pack" --all
       cd ..
 
-      zip -r9 "/tmp/${FILENAME}/${NAME}.zip" "/tmp/${FILENAME}/${NAME}.pack"
-      openssl aes-256-cbc -md md5 -in "/tmp/${FILENAME}/${NAME}.zip" -out "/tmp/${FILENAME}/${NAME}.zip.encrypted" -pass "pass:${B2_ENCRYPTION_KEY}"
-      b2 file upload "${B2_BUCKET}" "/tmp/${FILENAME}/${NAME}.zip.encrypted" "${NAME}/${DATE}.zip.encrypted"
+      zip -r9 "/tmp/${FILENAME}/${REPO}.zip" "/tmp/${FILENAME}/${REPO}.pack"
+      openssl aes-256-cbc -md md5 -in "/tmp/${FILENAME}/${REPO}.zip" -out "/tmp/${FILENAME}/${REPO}.zip.encrypted" -pass "pass:${B2_ENCRYPTION_KEY}"
+      b2 file upload "${B2_BUCKET}" "/tmp/${FILENAME}/${REPO}.zip.encrypted" "${REPO}/${DATE}.zip.encrypted"
     else
-      echo "Skipping empty repository ${NAME}."
+      echo "Skipping empty repository ${REPO}."
       cd ..
     fi
 
-    rm -rf "/tmp/${FILENAME}/${NAME}.git"
-    rm -f "/tmp/${FILENAME}/${NAME}".*
+    rm -rf "/tmp/${FILENAME}/${REPO}.git"
+    rm -f "/tmp/${FILENAME}/${REPO}".*
   fi
 done
 
