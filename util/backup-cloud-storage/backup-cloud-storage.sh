@@ -13,8 +13,8 @@ if [ -z "${B2_ENCRYPTION_KEY}" ]; then
   has_errors=true
 fi
 
-if [ -z "${B2_ACCOUNT_ID}" ]; then
-  echo "B2_ACCOUNT_ID is not set."
+if [ -z "${B2_APPLICATION_KEY_ID}" ]; then
+  echo "B2_APPLICATION_KEY_ID is not set."
   has_errors=true
 fi
 
@@ -27,7 +27,7 @@ if [ "${has_errors}" = true ]; then
   exit 1
 fi
 
-b2 authorize_account
+b2 account authorize
 
 DATE=$(date +"%Y-%m-%d_%H:%M:%S")
 
@@ -49,7 +49,7 @@ for bucket in $BUCKETS; do
 
       zip -r9 "/tmp/${FILENAME}".zip "/tmp/${DATE}/${BUCKETNAME}"
       openssl aes-256-cbc -md md5 -in "/tmp/${FILENAME}.zip" -out "/tmp/${FILENAME}.zip.encrypted" -pass "pass:${B2_ENCRYPTION_KEY}"
-      b2 upload_file "${B2_BUCKET}" "/tmp/${FILENAME}.zip.encrypted" "${BUCKETNAME}/${FILENAME}.zip.encrypted"
+      b2 file upload "${B2_BUCKET}" "/tmp/${FILENAME}.zip.encrypted" "${BUCKETNAME}/${FILENAME}.zip.encrypted"
       rm "/tmp/${FILENAME}".*
       rm -r "/tmp/${DATE}"/*
     fi

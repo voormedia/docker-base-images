@@ -6,4 +6,6 @@ RUN \
 
 COPY backup-postgresql.sh /srv
 
+RUN chmod +x /srv/backup-postgresql.sh
+
 ENTRYPOINT ["/srv/backup-postgresql.sh"]

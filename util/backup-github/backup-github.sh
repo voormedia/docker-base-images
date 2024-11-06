@@ -13,8 +13,8 @@ if [ -z "${B2_ENCRYPTION_KEY}" ]; then
   has_errors=true
 fi
 
-if [ -z "${B2_ACCOUNT_ID}" ]; then
-  echo "B2_ACCOUNT_ID is not set."
+if [ -z "${B2_APPLICATION_KEY_ID}" ]; then
+  echo "B2_APPLICATION_KEY_ID is not set."
   has_errors=true
 fi
 
@@ -37,7 +37,7 @@ if [ "${has_errors}" = true ]; then
   exit 1
 fi
 
-b2 authorize_account
+b2 account authorize
 gh auth setup-git
 
 DATE=$(date +"%Y-%m-%d_%H:%M:%S")
@@ -64,7 +64,7 @@ for REPO in $REPOS; do
 
       zip -r9 "/tmp/${FILENAME}/${NAME}.zip" "/tmp/${FILENAME}/${NAME}.pack"
       openssl aes-256-cbc -md md5 -in "/tmp/${FILENAME}/${NAME}.zip" -out "/tmp/${FILENAME}/${NAME}.zip.encrypted" -pass "pass:${B2_ENCRYPTION_KEY}"
-      b2 upload_file "${B2_BUCKET}" "/tmp/${FILENAME}/${NAME}.zip.encrypted" "${NAME}/${DATE}.zip.encrypted"
+      b2 file upload "${B2_BUCKET}" "/tmp/${FILENAME}/${NAME}.zip.encrypted" "${NAME}/${DATE}.zip.encrypted"
     else
       echo "Skipping empty repository ${NAME}."
       cd ..
