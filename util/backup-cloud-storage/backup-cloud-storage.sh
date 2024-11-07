@@ -37,9 +37,9 @@ BUCKETS=`gsutil ls`
 for bucket in $BUCKETS; do
   BUCKETNAME=$(echo "${bucket}" | sed 's/gs:\/\/*//g' | sed 's/.$//')
   FILENAME="${BUCKETNAME}_${DATE}"
-  if [[ $bucket =~ "-production/" ]]; then
+  if [[ $bucket =~ "-prd/" ]]; then
     if [[ "$(gsutil du -s ${bucket})" == 0* ]]; then
-      echo "Skipping empty bucket '${bucket}'"
+      echo "Skipping empty bucket '${BUCKETNAME}'"
     else
       gsutil -m cp -r "${bucket}" "/tmp/${DATE}"
 
@@ -56,4 +56,4 @@ for bucket in $BUCKETS; do
   fi
 done
 
-echo "Backup of cloud storage completed."
+echo "Backup of cloud storage buckets completed."
