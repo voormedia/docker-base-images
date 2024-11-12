@@ -37,7 +37,7 @@ BUCKETS=`gsutil ls`
 for bucket in $BUCKETS; do
   BUCKETNAME=$(echo "${bucket}" | sed 's/gs:\/\/*//g' | sed 's/.$//')
   FILENAME="${BUCKETNAME}_${DATE}"
-  if [[ $bucket =~ "-prd/" ]]; then
+  if [[ $bucket =~ "-prd/" || $bucket =~ "-production/" ]]; then
     if [[ "$(gsutil du -s ${bucket})" == 0* ]]; then
       echo "Skipping empty bucket '${BUCKETNAME}'"
     else
