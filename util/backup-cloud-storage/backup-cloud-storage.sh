@@ -23,6 +23,11 @@ if [ -z "${B2_APPLICATION_KEY}" ]; then
   has_errors=true
 fi
 
+if [ -z "${BACKUP_PATTERNS}" ]; then
+  echo "BACKUP_PATTERNS is not set."
+  has_errors=true
+fi
+
 if [ "${has_errors}" = true ]; then
   exit 1
 fi
@@ -30,24 +35,36 @@ fi
 b2 account authorize
 
 DATE=$(date +"%Y-%m-%d_%H:%M:%S")
-
 mkdir "/tmp/${DATE}"
-BUCKETS=`gsutil ls`
+BUCKETS=$(gsutil ls)
+
+IFS=',' read -r -a PATTERNS <<< "$BACKUP_PATTERNS"
 
 for bucket in $BUCKETS; do
   BUCKETNAME=$(echo "${bucket}" | sed 's/gs:\/\/*//g' | sed 's/.$//')
   FILENAME="${BUCKETNAME}_${DATE}"
-  if [[ $bucket =~ "-prd/" || $bucket =~ "-production/" ]]; then
-    if [[ "$(gsutil du -s ${bucket})" == 0* ]]; then
+
+  match=false
+
+  for pattern in "${PATTERNS[@]}"; do
+    if [[ $BUCKETNAME == "$pattern" || $BUCKETNAME == *"${pattern#\*}" ]]; then
+      match=true
+      break
+    fi
+  done
+
+  if [ "$match" = true ]; then
+    if [[ "$(gsutil du -s "${bucket}")" == 0* ]]; then
       echo "Skipping empty bucket '${BUCKETNAME}'"
     else
+      echo "Backing up bucket '${BUCKETNAME}'"
       gsutil -m cp -r "${bucket}" "/tmp/${DATE}"
 
       # Remove files that are too big, because they cause zip to fail!
       # http://infozip.sourceforge.net/FAQ.html#limits
       find "/tmp/${DATE}" -size +209715200c -exec rm {} \;
 
-      zip -r9 "/tmp/${FILENAME}".zip "/tmp/${DATE}/${BUCKETNAME}"
+      zip -r9 "/tmp/${FILENAME}.zip" "/tmp/${DATE}/${BUCKETNAME}"
       openssl aes-256-cbc -md md5 -in "/tmp/${FILENAME}.zip" -out "/tmp/${FILENAME}.zip.encrypted" -pass "pass:${B2_ENCRYPTION_KEY}"
       b2 file upload "${B2_BUCKET}" "/tmp/${FILENAME}.zip.encrypted" "${BUCKETNAME}/${FILENAME}.zip.encrypted"
       rm "/tmp/${FILENAME}".*
@@ -56,4 +73,4 @@ for bucket in $BUCKETS; do
   fi
 done
 
-echo "Backup of cloud storage buckets completed."
+echo "Backup of cloud storage buckets completed!"
