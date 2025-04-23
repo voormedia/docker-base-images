@@ -12,12 +12,10 @@ ruby-json \
 yaml \
 mimalloc2 \
 patchelf \
-
 # Patch the Ruby binary to use mimalloc.
 && patchelf --add-needed libmimalloc.so.2 /usr/bin/ruby \
 # Remove patchelf.
 && apk del patchelf \
-
 # Do not install gem documentation.
 && echo "gem: --no-rdoc --no-ri" > /etc/gemrc \
 # Update RubyGems to the latest version.
