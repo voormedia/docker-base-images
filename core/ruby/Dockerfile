@@ -20,6 +20,10 @@ patchelf \
 
 # Do not install gem documentation.
 && echo "gem: --no-rdoc --no-ri" > /etc/gemrc \
+# Update RubyGems to the latest version.
+&& gem update --system \
+# Install latest Bundler.
+&& gem install bundler \
 # Use https URLs for Github so bundle will be happier.
 && bundle config --global github.https true \
 # Don't complain about running as root.
