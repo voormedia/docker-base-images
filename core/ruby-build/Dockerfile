@@ -8,11 +8,6 @@ apk add --no-cache \
 libffi-dev \
 ruby \
 ruby-dev \
-ruby-bigdecimal \
-ruby-bundler \
-ruby-etc \
-ruby-irb \
-ruby-json \
 yaml-dev \
 zlib-dev \
 mimalloc2 \

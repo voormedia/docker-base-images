@@ -4,11 +4,6 @@ FROM voormedia/base:${version}
 RUN \
 apk add --no-cache \
 ruby \
-ruby-bigdecimal \
-ruby-bundler \
-ruby-etc \
-ruby-irb \
-ruby-json \
 yaml \
 mimalloc2 \
 patchelf \
