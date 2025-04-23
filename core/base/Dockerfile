@@ -1,4 +1,4 @@
-ARG version
+ARG version=edge
 FROM alpine:${version}
 ARG version
 

@@ -1,4 +1,4 @@
-ARG version
+ARG version=edge
 FROM voormedia/base:${version}
 
 RUN \

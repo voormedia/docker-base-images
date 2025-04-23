@@ -1,8 +1,9 @@
-ARG version
+ARG version=edge
 FROM voormedia/base:${version}
 
 RUN \
 apk add --no-cache \
+openssl \
 ruby \
 yaml \
 mimalloc2 \

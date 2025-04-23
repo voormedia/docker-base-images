@@ -1,4 +1,4 @@
-ARG version
+ARG version=edge
 FROM voormedia/build:${version}
 
 # Just like the regular Ruby container, but install a few very common
@@ -6,6 +6,7 @@ FROM voormedia/build:${version}
 RUN \
 apk add --no-cache \
 libffi-dev \
+openssl \
 ruby \
 ruby-dev \
 yaml-dev \
