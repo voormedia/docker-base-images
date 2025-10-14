@@ -28,6 +28,9 @@ if [ -z "${BACKUP_PATTERNS}" ]; then
   has_errors=true
 fi
 
+# Optional single exclusion pattern
+EXCLUSION_PATTERN=${EXCLUSION_PATTERN:-""}
+
 if [ "${has_errors}" = true ]; then
   exit 1
 fi
@@ -44,8 +47,13 @@ for bucket in $BUCKETS; do
   BUCKETNAME=$(echo "${bucket}" | sed 's/gs:\/\/*//g' | sed 's/.$//')
   FILENAME="${BUCKETNAME}_${DATE}"
 
-  match=false
+  # Exclude bucket if it matches the exclusion pattern
+  if [[ -n "$EXCLUSION_PATTERN" && "$BUCKETNAME" == "$EXCLUSION_PATTERN" ]]; then
+    echo "Excluding bucket '${BUCKETNAME}' due to EXCLUSION_PATTERN."
+    continue
+  fi
 
+  match=false
   for pattern in "${PATTERNS[@]}"; do
     if [[ $BUCKETNAME == "$pattern" || $BUCKETNAME == *"${pattern#\*}" ]]; then
       match=true
