@@ -22,3 +22,16 @@ jobs:
 
       - name: Build images
         run: ./create-latest
+
+  keepalive:
+    name: GitHub workflow immortality
+
+    runs-on: ubuntu-latest
+    permissions: {}
+
+    steps:
+      - name: Keep cronjob based triggers of GitHub workflows alive
+        uses: PhrozenByte/gh-workflow-immortality@v1
+        with:
+          secret: ${{ secrets.GH_CLONE_TOKEN }}
+          repos: ${{ github.repository }}
