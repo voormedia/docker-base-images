@@ -1,5 +1,10 @@
 # TODO: Replace all of this (until "---") with the following:
 # FROM voormedia/backup-base:latest
+# NOTE: This requires the google/cloud-sdk:alpine image to be updated to a recent version
+# of Alpine linux that contains the required PostgreSQL version. At the time of writing,
+# it is based on 3.20, and not 3.23.
+# See: https://hub.docker.com/r/google/cloud-sdk/tags?name=alpine
+# See: https://pkgs.alpinelinux.org/packages?name=postgresql18-client&branch=3.23&repo=&arch=x86_64
 FROM docker:27.3.1 as static-docker-source
 
 FROM voormedia/base:edge
