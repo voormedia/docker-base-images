@@ -47,7 +47,7 @@ pip install b2 --break-system-packages
 # ---
 RUN \
   apk add --no-cache \
-  postgresql17-client
+  postgresql18-client
 
 COPY backup-postgresql.sh /srv
 
