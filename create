@@ -19,6 +19,7 @@ docker build \
 --tag ${img} \
 --build-arg BUILDKIT_INLINE_CACHE=1 \
 --build-arg "version=${version}" \
+--build-arg "APK_CACHE_BUST=$(date +%Y%m%d)" \
 ${path}
 
 tput setaf 2
