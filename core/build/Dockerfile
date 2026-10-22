@@ -17,7 +17,6 @@ gdb \
 libtool \
 linux-headers \
 nodejs \
-npm \
 pnpm \
 yarn \
 git \
