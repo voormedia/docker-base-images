@@ -16,14 +16,11 @@ file \
 gdb \
 libtool \
 linux-headers \
-nasm \
 nodejs \
+pnpm \
 yarn \
-cmake \
 git \
 openssh-client \
-mysql-client \
-mariadb-dev \
 postgresql-client \
 python3 \
 rust \
