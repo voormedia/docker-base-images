@@ -7,20 +7,14 @@ role="build"
 # Install build essentials
 RUN \
 apk add --no-cache \
-autoconf \
-automake \
 build-base \
 chromium-chromedriver \
-file \
-libtool \
-linux-headers \
 nodejs \
 pnpm \
-yarn \
 git \
 openssh-client \
 postgresql-client \
-postgresql-dev \
+libpq-dev \
 tzdata \
 # Silence some git warnings
 && git config --global advice.detachedHead false
