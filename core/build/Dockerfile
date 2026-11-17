@@ -11,9 +11,7 @@ autoconf \
 automake \
 build-base \
 chromium-chromedriver \
-cargo \
 file \
-gdb \
 libtool \
 linux-headers \
 nodejs \
@@ -22,9 +20,6 @@ yarn \
 git \
 openssh-client \
 postgresql-client \
-python3 \
-rust \
-valgrind \
 postgresql-dev \
 tzdata \
 # Silence some git warnings

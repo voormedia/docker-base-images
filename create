@@ -1,6 +1,5 @@
 #!/bin/sh
 set -e
-export DOCKER_BUILDKIT=1
 
 path=${1}
 name=$(echo "${path}" | cut -d '/' -f 2)
@@ -10,33 +9,21 @@ img=voormedia/${name}:${version}
 
 tput setaf 2
 tput bold
-echo "Building image ${img}"
+echo "Building and pushing image ${img}${tag:+ (also tagged ${tag})}"
 tput sgr 0
-docker build \
+# Push layers zstd-compressed: they decompress much faster than gzip on pull.
+# force-compression recompresses layers inherited from gzip base images too.
+docker buildx build \
 --cache-from ${img} \
+--cache-to type=inline \
 --platform linux/amd64 \
 --pull \
---tag ${img} \
---build-arg BUILDKIT_INLINE_CACHE=1 \
+--tag "${img}" \
+${tag:+--tag "voormedia/${name}:${tag}"} \
 --build-arg "version=${version}" \
 --build-arg "APK_CACHE_BUST=$(date +%Y%m%d)" \
+--output type=image,push=true,oci-mediatypes=true,compression=zstd,force-compression=true \
 ${path}
-
-tput setaf 2
-tput bold
-echo "Pushing image ${img}"
-tput sgr 0
-docker push ${img}
-
-if [ -n "${tag}" ]; then
-  tagged=voormedia/${name}:${tag}
-  tput setaf 2
-  tput bold
-  echo "Tagging image ${img} as ${tagged}"
-  tput sgr 0
-  docker tag ${img} ${tagged}
-  docker push ${tagged}
-fi
 
 tput setaf 2
 tput bold

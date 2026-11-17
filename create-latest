@@ -1,7 +1,6 @@
 #!/bin/bash
 
 VERSIONED_IMAGES=$(find core -maxdepth 1 -mindepth 1 -type d -exec basename {} \; | sort)
-VERSIONED_IMAGES_REV=$(echo "$IMAGES" | tac)
 VERSIONS=$(wget https://alpinelinux.org/releases.json -q -O - | jq -r '.release_branches | map(.rel_branch | sub("v"; ""))[0:5][]')
 
 echo Building images: $VERSIONED_IMAGES
@@ -14,11 +13,6 @@ additional_tag=""
 for version in $VERSIONS; do
   for image in $VERSIONED_IMAGES; do
     ./create "core/${image}" "${version}" "${additional_tag}"
-  done
-
-  # Untag all images
-  for image in $VERSIONED_IMAGES_REV; do
-    docker image rm --force "voormedia/${image}:${version}"
   done
 
   if [ "$version" = "edge" ]; then
