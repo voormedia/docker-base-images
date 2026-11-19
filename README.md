@@ -10,15 +10,15 @@ Create a Dockerfile in a new directory, say 'base/Dockerfile'.
 
 Then do something like this:
 
-    ./create core/base 3.20
+    ./create core/base 3.24
 
 ## Use the image in a project
 
 In your project, use it as follows:
 
-    FROM voormedia/ruby-build:3.7 AS build
+    FROM voormedia/ruby-build:3.24 AS build
 
-    FROM voormedia/ruby:3.7
+    FROM voormedia/ruby:3.24
 
 
 ## Hooray! Have fun!
